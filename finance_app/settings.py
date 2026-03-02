@@ -35,6 +35,10 @@ INSTALLED_APPS = [
     # Aplicações locais
     'accounts',
     'core',
+    
+    # ...
+    #'accounts.apps.AccountsConfig',
+    # ...
 ]
 
 MIDDLEWARE = [

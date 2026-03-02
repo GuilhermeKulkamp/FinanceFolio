@@ -65,18 +65,25 @@ def user_create(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
+            # Salvar o usuário, mas não criar o perfil ainda
             user = form.save()
+
+            # Criar o perfil manualmente
+            from accounts.models import UserProfile
             access_level = form.cleaned_data.get('access_level')
-            profile = user.profile
+            profile, created = UserProfile.objects.get_or_create(user=user)
             profile.access_level = access_level
             profile.save()
+
             messages.success(request, f'Usuário {user.username} criado com sucesso!')
             return redirect('accounts:user_list')
     else:
         form = UserRegistrationForm()
 
-    return render(request, 'accounts/user_form.html', {'form': form, 'title': 'Criar Usuário'})
-
+    return render(request, 'accounts/user_form.html', {
+        'form': form,
+        'title': 'Criar Usuário',
+    })
 @login_required
 @user_passes_test(is_admin)
 def user_update(request, pk):

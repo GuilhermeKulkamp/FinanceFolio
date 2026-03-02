@@ -3,15 +3,17 @@ from django.contrib.auth.models import User
 from accounts.models import UserProfile
 
 class Command(BaseCommand):
-    help = 'Cria perfis de usuário para usuários existentes'
+    help = 'Cria perfis para usuários existentes'
 
     def handle(self, *args, **options):
         users_without_profile = []
         for user in User.objects.all():
             try:
+                # Tenta acessar o perfil
                 profile = user.profile
             except UserProfile.DoesNotExist:
-                UserProfile.objects.create(user=user)
+                # Se não existir, cria um novo perfil
+                profile = UserProfile.objects.create(user=user)
                 users_without_profile.append(user.username)
 
         if users_without_profile:
