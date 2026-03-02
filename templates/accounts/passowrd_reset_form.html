@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Recuperar Senha - Controle Financeiro{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+        <div class="auth-form">
+            <div class="text-center mb-4">
+                <h1 class="login-logo">
+                    <i class="fas fa-chart-line me-2"></i>Controle Financeiro
+                </h1>
+                <h5>Recuperação de Senha</h5>
+                <p class="text-muted">Digite seu e-mail para receber instruções de recuperação</p>
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane me-2"></i>Enviar E-mail
+                    </button>
+                </div>
+
+                <div class="text-center mt-3">
+                    <a href="{% url 'accounts:login' %}" class="text-decoration-none">
+                        <i class="fas fa-arrow-left me-1"></i> Voltar para o login
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
