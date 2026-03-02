@@ -1,0 +1,11 @@
+{
+  "plugins": ["prettier-plugin-django-template"],
+  "overrides": [
+    {
+      "files": "*.html",
+      "options": {
+        "parser": "django-template"
+      }
+    }
+  ]
+}
